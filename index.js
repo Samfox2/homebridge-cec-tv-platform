@@ -34,22 +34,6 @@ class CECTVPlugin {
 
 		this.log.info(`Creating: ${this.name}`);
 
-		//// Interval
-		//this.interval = this.config.interval || 5000;
-		//// Can't be lower than 300 miliseconds, it will flood your network
-		//if (this.interval < 300) this.interval = 300;
-
-
-
-		//// Variable
-		//this.awake = false;
-		//this.currentAppIndex = 0;
-		//this.currentAppOnProgress = false;
-		//this.checkPowerOnProgress = false;
-		//this.prevStdout = "";
-		//this.limit_retry = LIMIT_RETRY;
-
-
 		/**
 		 * Create the accessory
 		 */
@@ -119,8 +103,8 @@ class CECTVPlugin {
 
 
 		/**
-	 * Create a speaker service to allow volume control
-	 */
+	        * Create a speaker service to allow volume control
+	        */
 		this.tvSpeakerService = this.tv.addService(Service.TelevisionSpeaker);
 
 		this.tvSpeakerService
@@ -147,14 +131,14 @@ class CECTVPlugin {
 		/**
 		 * Publish as external accessory
 		 */
-		// get the accesory information and send it to HB
+		
+		// get the accessory information and send it to HB
 		this.tvInfo
 			.setCharacteristic(Characteristic.Model, this.model)
 			.setCharacteristic(Characteristic.Manufacturer, this.manufacturer)
 			.setCharacteristic(Characteristic.SerialNumber, this.serial);
 
-
-		// CEC stuff
+		// CEC commands
 		cecClient.stdout.on('data', data => {
 			const traffic = data.toString();
 			console.log(traffic);
@@ -228,7 +212,6 @@ class CECTVPlugin {
 
 		// Publish the accessories
 		this.api.publishExternalAccessories(PLUGIN_NAME, [this.tv]);
-
 
 		// Loop the power status
 		//this.update();
