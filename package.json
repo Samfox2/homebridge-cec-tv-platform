@@ -20,7 +20,7 @@
 		"homekit"
 	],
 	"author": "Samfox2",
-	"license": "apache2",
+	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/Samfox2/homebridge-cec-tv-platform/issues"
 	},
