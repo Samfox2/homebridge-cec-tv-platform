@@ -82,8 +82,6 @@ class CECTVPlugin {
 
 		for (var i in this.inputs)
 		{
-			this.addAccessory(this.inputs[i]);
-
 			let service = this.tv.addService(Service.InputSource, `Input - ${name}`, i);
 			service
 				.setCharacteristic(Characteristic.Identifier, i)
