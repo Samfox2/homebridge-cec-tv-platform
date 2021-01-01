@@ -1,7 +1,7 @@
 # homebridge-cec-tv-platform
 TV CEC client plugin for homebridge: https://github.com/nfarina/hombebridge
 
-The plugin is based on homebridge-cec from Dominick Han (dominick-han).
+The plugin is based on homebridge-cec from Dominick Han (@dominick-han) but uses platform toolkit.
 
 [![NPM Version](https://img.shields.io/npm/v/homebridge-cec-tv-platform.svg)](https://www.npmjs.com/package/homebridge-cec-tv-platform)  
 Homebridge plugin to control a TV via CEC protocol (power on/off, volume +/-, source selection)
