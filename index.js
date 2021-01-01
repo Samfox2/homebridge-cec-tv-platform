@@ -108,7 +108,7 @@ class CECTVPlugin {
 
 
 		this.inputs = Object.entries(this.inputs).map(([port, name]) => {
-			let service = this.tv.addService(Service.InputSource, `inputSource${port}`);
+			let service = this.tv.addService(Service.InputSource, `inputSource${port}`, port);
 			service
 				.setCharacteristic(Characteristic.Identifier, port)
 				.setCharacteristic(Characteristic.ConfiguredName, name)
