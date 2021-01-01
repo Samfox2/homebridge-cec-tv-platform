@@ -94,9 +94,9 @@ class CECTVPlugin {
 				.setCharacteristic(Characteristic.InputSourceType, Characteristic.InputSourceType.APPLICATION);
 			this.tvService.addLinkedService(service);
 
-			if (configured == Characteristic.IsConfigured.CONFIGURED) {
+			//if (configured == Characteristic.IsConfigured.CONFIGURED) {
 				this.inputs[i].service = service;
-			}
+			//}
 		};
 
 
