@@ -4,14 +4,11 @@
         "accessories": [
             {
                 "name": "TOSHIBA",
-                "sources": [
+                "model": "REGZA",
+                "devices": [
                     {
-                        "name": "Raspberry Pi",
-                        "address": "2.0.0.0"
-                    },
-                    {
-                        "name": "Apple TV",
-                        "address": "3.0.0.0"
+                        "1": "Sat Reseiver",
+                        "2": "Apple TV"
                     }
                 ]
             },
@@ -19,12 +16,8 @@
                 "name": "Philips",
                 "sources": [
                     {
-                        "name": "Apple TV 4k",
-                        "address": "2.0.0.0"
-                    },
-                    {
-                        "name": "Fire TV",
-                        "address": "3.0.0.0"
+                        "1": "Fire TV",
+                        "2": "Apple TV 4k"
                     }
                 ]
             }
