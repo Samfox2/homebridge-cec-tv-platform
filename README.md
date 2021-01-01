@@ -1,5 +1,5 @@
 # homebridge-cec-tv-platform
-TV CEC client plugin for homebridge: https://github.com/nfarina/hombebridge
+TV CEC client plugin for homebridge: https://github.com/nfarina/homebridge
 
 The plugin is based on homebridge-cec from Dominick Han (dominick-han) but uses platform toolkit.
 
