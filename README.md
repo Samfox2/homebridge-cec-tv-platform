@@ -24,7 +24,7 @@ CEC-Enabled device. Raspberry Pi (tested working) or Pulse-Eight's [USB - CEC Ad
         "accessories": [
             {
                 "name": "TOSHIBA",
-                "sources": [
+                "devices": [
                     {
                         "name": "Raspberry Pi",
                         "address": "2.0.0.0"
@@ -48,13 +48,13 @@ See [config-sample.json](config-sample.json)
 Field           | Required?    | Description
 ----------------|--------------|-------------
 **platform**    | **Required** | Must be "HomebridgeCECTV".
-**sources**     |  Required for source-switching  | A JSON array, containing objects specified from below.
+**devices**     |  Required for source-switching  | A JSON array, containing objects specified from below.
   name          |  *Optional*  | Name displayed in Home app.
   manufacturer  |  *Optional*  | Manufacturer displayed in Home app.
   model         |  *Optional*  | Model displayed in Home app.
   serial        |  *Optional*  | Serial# displayed in Home app.
 
-### "sources" entry
+### "devices" entry
 Field           | Required?    | Description
 ----------------|--------------|-------------
 **name**        | **Required** | Name displayed in Home app.
