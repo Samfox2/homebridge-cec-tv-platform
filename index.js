@@ -87,37 +87,35 @@ class CECTVPlugin {
 		if (!this.inputs) this.inputs = [];
 
 
-		for (var i in this.inputs)
-		{
-			let name = this.inputs[i].name;
-			let service = this.tv.addService(Service.InputSource, `Input - ${name}`, i);
-			service
-				.setCharacteristic(Characteristic.Identifier, i)
-				.setCharacteristic(Characteristic.ConfiguredName, name)
-				//.setCharacteristic(Characteristic.InputSourceType, type)
-				//.setCharacteristic(Characteristic.TargetVisibilityState, targetVisibility)
-				//.setCharacteristic(Characteristic.CurrentVisibilityState, currentVisibility)
-				.setCharacteristic(Characteristic.IsConfigured, Characteristic.IsConfigured.CONFIGURED)
-				.setCharacteristic(Characteristic.InputSourceType, Characteristic.InputSourceType.APPLICATION);
-			this.tvService.addLinkedService(service);
-
-			//if (configured == Characteristic.IsConfigured.CONFIGURED) {
-				this.inputs[i].service = service;
-			//}
-		};
-
-
-
-
-		//this.inputs = Object.entries(this.config.devices).map(([port, name]) => {
-		//	let service = this.tv.addService(Service.InputSource, `inputSource${port}`);
+		//for (var i in this.inputs)
+		//{
+		//	let name = this.inputs[i].name;
+		//	let service = this.tv.addService(Service.InputSource, `Input - ${name}`, i+1);
 		//	service
-		//		.setCharacteristic(Characteristic.Identifier, port)
+		//		.setCharacteristic(Characteristic.Identifier, i)
 		//		.setCharacteristic(Characteristic.ConfiguredName, name)
+		//		//.setCharacteristic(Characteristic.InputSourceType, type)
+		//		//.setCharacteristic(Characteristic.TargetVisibilityState, targetVisibility)
+		//		//.setCharacteristic(Characteristic.CurrentVisibilityState, currentVisibility)
 		//		.setCharacteristic(Characteristic.IsConfigured, Characteristic.IsConfigured.CONFIGURED)
 		//		.setCharacteristic(Characteristic.InputSourceType, Characteristic.InputSourceType.APPLICATION);
 		//	this.tvService.addLinkedService(service);
-		//});
+
+		//	//if (configured == Characteristic.IsConfigured.CONFIGURED) {
+		//		this.inputs[i].service = service;
+		//	//}
+		//};
+
+
+		this.inputs = Object.entries(this.inputs).map(([port, name]) => {
+			let service = this.tv.addService(Service.InputSource, `inputSource${port}`);
+			service
+				.setCharacteristic(Characteristic.Identifier, port)
+				.setCharacteristic(Characteristic.ConfiguredName, name)
+				.setCharacteristic(Characteristic.IsConfigured, Characteristic.IsConfigured.CONFIGURED)
+				.setCharacteristic(Characteristic.InputSourceType, Characteristic.InputSourceType.APPLICATION);
+			this.tvService.addLinkedService(service);
+		});
 
 
 		/**
