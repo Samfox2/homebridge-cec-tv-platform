@@ -6,7 +6,7 @@ const tvEvent = new events.EventEmitter();
 let Service, Characteristic, Homebridge, Accessory;
 
 
-const PLUGIN_NAME 	= 'homebridge-cec-tv-platform';
+const PLUGIN_NAME = 'homebridge-cec-tv-platform';
 const PLATFORM_NAME = 'HomebridgeCECTV';
 //const LIMIT_RETRY 	= 5;
 
@@ -27,17 +27,11 @@ class CECTVPlugin {
 		this.api = api;
 
 		// Configuration
-		this.name  = this.config.name  || 'CEC Television';
+		this.name = this.config.name || 'CEC Television';
 		this.model = this.config.model || 'TV';
 		this.manufacturer = this.config.manufacturer || 'N/A';
 		this.serial = this.config.serial || 'N/A';
 
-		//// IP
-		//this.address = this.config.address;
-		//if (!this.address) {
-		//	this.log.error("\n\nPlease provide address for this accessory: ${this.name}\n\n");
-		//	return;
-		//}
 		this.log.info(`Creating: ${this.name}`);
 
 		//// Interval
@@ -81,7 +75,6 @@ class CECTVPlugin {
 			.setCharacteristic(Characteristic.SleepDiscoveryMode, Characteristic.SleepDiscoveryMode.ALWAYS_DISCOVERABLE);
 
 
-
 		// Inputs
 		this.inputs = this.config.devices;
 		if (!this.inputs) this.inputs = [];
@@ -98,9 +91,9 @@ class CECTVPlugin {
 		});
 
 
-	    /**
-		* Create a speaker service to allow volume control
-		*/
+		/**
+	 * Create a speaker service to allow volume control
+	 */
 		this.tvSpeakerService = this.tv.addService(Service.TelevisionSpeaker);
 
 		this.tvSpeakerService
@@ -127,11 +120,11 @@ class CECTVPlugin {
 		/**
 		 * Publish as external accessory
 		 */
-	    // get the accesory information and send it to HB
+		// get the accesory information and send it to HB
 		this.tvInfo
 			.setCharacteristic(Characteristic.Model, this.model)
 			.setCharacteristic(Characteristic.Manufacturer, this.manufacturer)
-			.setCharacteristic(Characteristic.SerialNumber, this.serial );
+			.setCharacteristic(Characteristic.SerialNumber, this.serial);
 
 
 		// CEC stuff
@@ -214,7 +207,7 @@ class CECTVPlugin {
 		//this.update();
 	}
 
-	
+
 
 	getPowerStatus(callback) {
 		this.log.info(`Checking TV power status`);
@@ -327,32 +320,31 @@ class CECTVPlugin {
 	//		});
 	//	}, this.interval);
 	//}
-
 }
 
 
 class CECTVPluginPlatform {
 	constructor(log, config, api) {
-		if(!config) return;
+		if (!config) return;
 
 		this.log = log;
 		this.api = api;
 		this.config = config;
 
-		if(this.api) this.api.on('didFinishLaunching', this.initAccessory.bind(this));
+		if (this.api) this.api.on('didFinishLaunching', this.initAccessory.bind(this));
 	}
 
 	initAccessory() {
 		// read from config.accessories
-		if(this.config.accessories && Array.isArray(this.config.accessories)) {
+		if (this.config.accessories && Array.isArray(this.config.accessories)) {
 			for (let accessory of this.config.accessories) {
 				if (accessory) new CECTVPlugin(this.log, accessory, this.api);
 			}
-		} else if(this.config.accessories) {
+		} else if (this.config.accessories) {
 			this.log.info('Cannot initialize. Type: %s', typeof this.config.accessories);
 		}
 
-		if(!this.config.accessories) {
+		if (!this.config.accessories) {
 			this.log.info('-------------------------------------------------');
 			this.log.info('Please add one or more accessories in your config');
 			this.log.info('-------------------------------------------------');
