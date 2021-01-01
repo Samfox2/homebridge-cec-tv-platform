@@ -74,6 +74,13 @@ class CECTVPlugin {
 			.setCharacteristic(Characteristic.ConfiguredName, this.name)
 			.setCharacteristic(Characteristic.SleepDiscoveryMode, Characteristic.SleepDiscoveryMode.ALWAYS_DISCOVERABLE);
 
+		// Power state
+		this.tvService.getCharacteristic(Characteristic.Active)
+			.on('get', this.getPowerStatus.bind(this))
+			.on('set', this.setPowerStatus.bind(this));
+		this.tvService
+			.getCharacteristic(Characteristic.ActiveIdentifier)
+			.on('set', this.setInput.bind(this));
 
 		// Inputs
 		this.inputs = this.config.devices;
