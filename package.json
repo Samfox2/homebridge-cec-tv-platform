@@ -1,0 +1,28 @@
+{
+	"name": "homebridge-cec-tv-platform",
+	"version": "0.1.0",
+	"description": "Homebridge plugin to control a TV via CEC protocol (power on/off, volume +/-, source selection)",
+	"main": "index.js",
+	"engines": {
+		"node": ">=12.9.0",
+		"homebridge": ">=1.0.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Samfox2/homebridge-cec-tv-platform.git"
+	},
+	"keywords": [
+		"homebridge",
+		"homebridge-plugin",
+		"tv",
+		"cec",
+    "hdmi",
+		"homekit"
+	],
+	"author": "Samfox2",
+	"license": "apache2",
+	"bugs": {
+		"url": "https://github.com/Samfox2/homebridge-cec-tv-platform/issues"
+	},
+	"homepage": "https://github.com/Samfox2/homebridge-cec-tv-platform#readme"
+}
