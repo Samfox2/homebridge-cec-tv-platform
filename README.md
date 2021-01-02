@@ -3,7 +3,11 @@ TV CEC client plugin for homebridge: https://github.com/nfarina/homebridge
 
 The plugin is based on homebridge-cec from Dominick Han (dominick-han) but uses platform toolkit.
 
-[![NPM Version](https://img.shields.io/npm/v/homebridge-cec-tv-platform.svg)](https://www.npmjs.com/package/homebridge-cec-tv-platform)  
+[![NPM Version](https://img.shields.io/npm/v/homebridge-cec-tv-platform.svg)](https://www.npmjs.com/package/homebridge-cec-tv-platform)
+
+[![npm](https://img.shields.io/npm/dt/homebridge-cec-tv-platform.svg)](https://www.npmjs.com/package/homebridge-cec-tv-platform)
+[![GitHub last commit](https://img.shields.io/github/last-commit/samfox2/homebridge-cec-tv-platform.svg)](https://github.com/samfox2/homebridge-cec-tv-platform)
+
 Homebridge plugin to control a TV via CEC protocol (power on/off, volume +/-, source selection)
 ### Prerequisite
 CEC-Enabled device. Raspberry Pi (tested working) or Pulse-Eight's [USB - CEC Adapter](https://www.pulse-eight.com/p/104/usb-hdmi-cec-adapter)
