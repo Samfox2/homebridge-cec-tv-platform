@@ -336,7 +336,6 @@ class CECTVPlugin {
 class CECTVPluginPlatform {
 	constructor(log, config, api) {
 		if (!config) return;
-		if (!config) return;
 
 		this.log = log;
 		this.api = api;
