@@ -148,9 +148,17 @@ class CECTVPlugin {
 			if (traffic.indexOf('>> 0f:36') !== -1) {
 				tvEvent.emit('POWER_OFF');
 			}
-			if (traffic.indexOf('>> 01:90:00') !== -1) {
+			if (traffic.indexOf('>> 01:90:00') !== -1) { // tv is on
 				tvEvent.emit('POWER_ON');
 			}
+			
+			
+			if (traffic.indexOf('>> 01:90:01') !== -1) { // tv is in standby
+				tvEvent.emit('POWER_OFF');
+			}
+			
+			
+			
 			const match = />> (0f:80:\d0:00|0f:86):(\d)0:00/.exec(traffic);
 			if (match) {
 				tvEvent.emit('INPUT_SWITCHED', match[2]);
@@ -173,7 +181,7 @@ class CECTVPlugin {
 
 		tvEvent.on('POWER_OFF', () => {
 			if (!justSwitched) {
-				this.log.debug('CEC: Power on');
+				this.log.debug('CEC: Power off');
 				this.tvService.getCharacteristic(Characteristic.Active).updateValue(false);
 				justSwitched = true;
 				setTimeout(() => {
