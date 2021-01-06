@@ -158,10 +158,16 @@ class CECTVPlugin {
 			}
 			
 			
+			//const match = />> (0f:80:\d0:00|0f:86):(\d)0:00/.exec(traffic);
+			//if (match) {
+			//	tvEvent.emit('INPUT_SWITCHED', match[3]);
+			//}
 			
-			const match = />> (0f:80:\d0:00|0f:86):(\d)0:00/.exec(traffic);
+			const match = />> (0f:80:(\d)0:00|0f:86):(\d)0:00/.exec(traffic);
 			if (match) {
-				tvEvent.emit('INPUT_SWITCHED', match[2]);
+				this.log.info(`TV active source switched HDMI${match[2]} --> HDMI${match[3]}`);
+			
+				tvEvent.emit('INPUT_SWITCHED', match[3]);
 			}
 		});
 
