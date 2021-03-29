@@ -1,6 +1,6 @@
 {
 	"name": "homebridge-cec-tv-platform",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"description": "Homebridge plugin to control a TV via CEC protocol (power on/off, volume +/-, source selection)",
 	"main": "index.js",
 	"engines": {
