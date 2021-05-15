@@ -1,5 +1,6 @@
 const events = require('events');
 const { spawn } = require('child_process');
+var moment = require('moment');
 const cecClient = spawn('cec-client', ['-d', '8']);
 const tvEvent = new events.EventEmitter();
 
@@ -10,12 +11,17 @@ const PLUGIN_NAME = 'homebridge-cec-tv-platform';
 const PLATFORM_NAME = 'HomebridgeCECTV';
 //const LIMIT_RETRY 	= 5;
 
+var FakeGatoHistoryService;
+const EPOCH_OFFSET = 978307200;
+
 module.exports = (homebridge) => {
 	Service = homebridge.hap.Service;
 	Characteristic = homebridge.hap.Characteristic;
 	Homebridge = homebridge;
 	Accessory = homebridge.platformAccessory;
-	var FakeGatoHistoryService = require('fakegato-history')(homebridge);
+	FakeGatoHistoryService = require('fakegato-history')(homebridge);
+	
+	
 	homebridge.registerPlatform(PLUGIN_NAME, PLATFORM_NAME, CECTVPluginPlatform, true);
 };
 
@@ -128,11 +134,19 @@ class CECTVPlugin {
 
 		this.tvService.addLinkedService(this.tvSpeakerService);
 
-		
+		var FakeGatoHistoryService = require('fakegato-history');
 		//fakegato-history
-		this.FakeGatoHistoryService = new FakeGatoHistoryService("contact", this.tv, { storage: 'fs', path: this.localCache, disableTimer: false });
-		this.tv.addService(FakeGatoHistoryService);
-
+		//this.loggingService = new FakeGatoHistoryService("contact", this.tv, { storage: 'fs', path: this.localCache, disableTimer: false });
+		
+		
+		this.loggingService = new FakeGatoHistoryService("contact", {
+            displayName: this.name,
+            log: this.log
+        },
+        {
+            storage: 'fs',
+            disableTimer: true
+        });
 		/**
 		 * Publish as external accessory
 		 */
@@ -184,7 +198,11 @@ class CECTVPlugin {
 				this.log.debug('CEC: Power on');
 				this.tvService.getCharacteristic(Characteristic.Active).updateValue(true);
 				justSwitched = true;
-				this.FakeGatoHistoryService.addEntry({time: Math.round(new Date().valueOf() / 1000), status: 1});
+					this.loggingService.addEntry(
+            {
+                time: moment().unix(),
+                status: 1
+            });
 				setTimeout(() => {
 					justSwitched = false;
 				}, 5000);
@@ -196,7 +214,11 @@ class CECTVPlugin {
 				this.log.debug('CEC: Power off');
 				this.tvService.getCharacteristic(Characteristic.Active).updateValue(false);
 				justSwitched = true;
-				this.FakeGatoHistoryService.addEntry({time: Math.round(new Date().valueOf() / 1000), status: 0});
+			this.loggingService.addEntry(
+            {
+                time: moment().unix(),
+                status: 0
+            });
 				setTimeout(() => {
 					justSwitched = false;
 				}, 5000);
@@ -247,7 +269,12 @@ class CECTVPlugin {
 			handler.activated = true;
 			callback(null, true);
 			this.log.info('TV is on');
-			this.FakeGatoHistoryService.addEntry({time: Math.round(new Date().valueOf() / 1000), status: 1});
+			
+			this.loggingService.addEntry(
+            {
+                time: moment().unix(),
+                status: 1
+            });
 		};
 		tvEvent.once('POWER_ON', handler);
 		setTimeout(() => {
@@ -255,7 +282,11 @@ class CECTVPlugin {
 			if (!handler.activated) {
 				callback(null, false);
 				this.log.info('TV is off');
-				this.FakeGatoHistoryService.addEntry({time: Math.round(new Date().valueOf() / 1000), status: 0});
+							this.loggingService.addEntry(
+            {
+                time: moment().unix(),
+                status: 0
+            });
 			}
 		}, 1000);
 	}
@@ -284,6 +315,14 @@ class CECTVPlugin {
 
 		// Send on or off signal
 		cecClient.stdin.write(value ? 'tx 10:04\n' : 'tx 10:36\n');
+		
+		
+		this.loggingService.addEntry(
+            {
+                time: moment().unix(),
+                status: 1
+            });
+		
 		callback();
 	}
 
