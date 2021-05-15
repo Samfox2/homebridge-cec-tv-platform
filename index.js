@@ -15,6 +15,7 @@ module.exports = (homebridge) => {
 	Characteristic = homebridge.hap.Characteristic;
 	Homebridge = homebridge;
 	Accessory = homebridge.platformAccessory;
+	var FakeGatoHistoryService = require('fakegato-history')(homebridge);
 	homebridge.registerPlatform(PLUGIN_NAME, PLATFORM_NAME, CECTVPluginPlatform, true);
 };
 
@@ -127,6 +128,10 @@ class CECTVPlugin {
 
 		this.tvService.addLinkedService(this.tvSpeakerService);
 
+		
+		//fakegato-history
+		this.FakeGatoHistoryService = new FakeGatoHistoryService("contact", this.tv, { storage: 'fs', path: this.localCache, disableTimer: false });
+		this.tv.addService(FakeGatoHistoryService);
 
 		/**
 		 * Publish as external accessory
@@ -179,6 +184,7 @@ class CECTVPlugin {
 				this.log.debug('CEC: Power on');
 				this.tvService.getCharacteristic(Characteristic.Active).updateValue(true);
 				justSwitched = true;
+				this.FakeGatoHistoryService.addEntry({time: Math.round(new Date().valueOf() / 1000), status: 1});
 				setTimeout(() => {
 					justSwitched = false;
 				}, 5000);
@@ -190,6 +196,7 @@ class CECTVPlugin {
 				this.log.debug('CEC: Power off');
 				this.tvService.getCharacteristic(Characteristic.Active).updateValue(false);
 				justSwitched = true;
+				this.FakeGatoHistoryService.addEntry({time: Math.round(new Date().valueOf() / 1000), status: 0});
 				setTimeout(() => {
 					justSwitched = false;
 				}, 5000);
@@ -240,6 +247,7 @@ class CECTVPlugin {
 			handler.activated = true;
 			callback(null, true);
 			this.log.info('TV is on');
+			this.FakeGatoHistoryService.addEntry({time: Math.round(new Date().valueOf() / 1000), status: 1});
 		};
 		tvEvent.once('POWER_ON', handler);
 		setTimeout(() => {
@@ -247,6 +255,7 @@ class CECTVPlugin {
 			if (!handler.activated) {
 				callback(null, false);
 				this.log.info('TV is off');
+				this.FakeGatoHistoryService.addEntry({time: Math.round(new Date().valueOf() / 1000), status: 0});
 			}
 		}, 1000);
 	}
