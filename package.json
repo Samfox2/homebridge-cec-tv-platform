@@ -16,7 +16,7 @@
 		"homebridge-plugin",
 		"tv",
 		"cec",
-    "hdmi",
+                "hdmi",
 		"homekit"
 	],
 	"author": "Samfox2",
@@ -24,5 +24,8 @@
 	"bugs": {
 		"url": "https://github.com/Samfox2/homebridge-cec-tv-platform/issues"
 	},
+  "dependencies": {
+    "fakegato-history": "^0.6.1"
+  },
 	"homepage": "https://github.com/Samfox2/homebridge-cec-tv-platform#readme"
 }
