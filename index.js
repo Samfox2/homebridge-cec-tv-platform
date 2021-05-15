@@ -133,10 +133,6 @@ class CECTVPlugin {
 		//	});
 
 		this.tvService.addLinkedService(this.tvSpeakerService);
-
-		var FakeGatoHistoryService = require('fakegato-history');
-		//fakegato-history
-		//this.loggingService = new FakeGatoHistoryService("contact", this.tv, { storage: 'fs', path: this.localCache, disableTimer: false });
 		
 		
 		this.loggingService = new FakeGatoHistoryService("contact", {
@@ -145,8 +141,10 @@ class CECTVPlugin {
         },
         {
             storage: 'fs',
-            disableTimer: true
+            disableTimer: false
         });
+        
+        
 		/**
 		 * Publish as external accessory
 		 */
@@ -198,7 +196,7 @@ class CECTVPlugin {
 				this.log.debug('CEC: Power on');
 				this.tvService.getCharacteristic(Characteristic.Active).updateValue(true);
 				justSwitched = true;
-					this.loggingService.addEntry(
+				this.loggingService.addEntry(
             {
                 time: moment().unix(),
                 status: 1
@@ -282,7 +280,7 @@ class CECTVPlugin {
 			if (!handler.activated) {
 				callback(null, false);
 				this.log.info('TV is off');
-							this.loggingService.addEntry(
+				this.loggingService.addEntry(
             {
                 time: moment().unix(),
                 status: 0
