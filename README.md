@@ -27,12 +27,11 @@ CEC-Enabled device. Raspberry Pi (tested working) or Pulse-Eight's [USB - CEC Ad
         "accessories": [
             {
                 "name": "TOSHIBA",
-                "devices": [
+                "devices": 
                     {
                         "1": "Sat Receiver",
                         "2": "Apple TV"
                     }
-                ]
             }
         ]
     }
